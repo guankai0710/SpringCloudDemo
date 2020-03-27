@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC " -//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!--导入属性配置-->
+    <!--<properties resource="generator.properties"></properties>-->
+
+    <!-- 数据库驱动jar包 -->
+    <classPathEntry location="D:\mavenRepository\mysql\mysql-connector-java\5.1.47\mysql-connector-java-5.1.47.jar"/>
+
+    <context id="default" targetRuntime="MyBatis3">
+
+        <!-- 生成的 Java 文件的编码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!-- 格式化 Java 代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <!-- 格式化 XML 代码 -->
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+
+        <!-- 生成的pojo实体类，将implements Serializable-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+
+        <!-- 将生成的Example类重命名为Criteria -->
+        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+            <property name="searchString" value="Example$" />
+            <property name="replaceString" value="Criteria" />
+        </plugin>
+
+        <!-- 自定义注释生成器 -->
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!--jdbc的数据库连接 -->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC"
+                        userId="root" password="root">
+        </jdbcConnection>
+
+        <!-- 非必需，类型处理器，在数据库类型和java类型之间的转换控制-->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+
+        <!-- 生成entity实体类文件位置 -->
+        <javaModelGenerator targetPackage="com.demo.springbootdemo.entity"
+                            targetProject="src/main/java">
+        <property name="enableSubPackages" value="false"/>
+        <property name="constructorBased" value="true"/>
+        <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- 生成mapper.xml配置文件位置 -->
+        <sqlMapGenerator targetPackage="mapper"
+                        targetProject="src/main/resources">
+        <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- 生成mapper接口文件位置 -->
+        <javaClientGenerator targetPackage="com.demo.springbootdemo.dao"
+                            targetProject="src/main/java"
+                            type="XMLMAPPER">
+        <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- 需要生成的实体类对应的表名，多个实体类复制多份该配置即可 -->
+        <!--<table tableName="TEST1" domainObjectName="Test"-->
+        <!--enableCountByExample="false" enableUpdateByExample="false"-->
+        <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+        <!--selectByExampleQueryId="false">-->
+        <!--</table>-->
+
+        <!--<table tableName="demo_person" domainObjectName="Person">-->
+            <!--<generatedKey column="id" sqlStatement="Oracle" identity="true"/>-->
+        <!--</table>-->
+
+        <table tableName="demo_person" domainObjectName="Person"></table>
+        <table tableName="demo_department" domainObjectName="Department"></table>
+        <table tableName="demo_category" domainObjectName="Category"></table>
+
+    </context>
+</generatorConfiguration>

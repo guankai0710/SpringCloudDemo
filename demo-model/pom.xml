@@ -13,6 +13,11 @@
     <packaging>jar</packaging>
 
     <dependencies>
+        <!-- mybatis生成代码插件 -->
+        <dependency>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-core</artifactId>
+        </dependency>
         <!-- com.alibaba.druid连接池 -->
         <dependency>
             <groupId>com.alibaba</groupId>
