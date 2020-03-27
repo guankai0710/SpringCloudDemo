@@ -10,7 +10,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>demo-model</module>
         <module>demo-provider-user</module>
         <module>demo-consumer-user</module>
     </modules>

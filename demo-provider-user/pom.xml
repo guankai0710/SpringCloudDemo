@@ -18,11 +18,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.guankai</groupId>
-            <artifactId>demo-model</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>

@@ -19,11 +19,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.guankai</groupId>
-            <artifactId>demo-model</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
