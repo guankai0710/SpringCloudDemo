@@ -15,10 +15,10 @@ import java.util.Properties;
 import static org.mybatis.generator.internal.util.StringUtility.isTrue;
 
 /**
- * TODO
+ * 生成表注解插件
  *
  * @author: guan.kai
- * @date: 2019/12/23 16:28
+ * @date: 2020/3/27 21:00
  **/
 public class MyCommentGenerator implements CommentGenerator {
 

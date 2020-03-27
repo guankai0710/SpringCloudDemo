@@ -27,9 +27,18 @@
             <property name="replaceString" value="Criteria" />
         </plugin>
 
-        <!-- 关闭自动生成注释 -->
+        <!-- Mapper注解插件 -->
+        <plugin type="com.guankai.springcloud.mbg.MapperAnnotationPlugin">
+            <!-- @Mapper 默认true开启 -->
+            <property name="@Mapper" value="true"/>
+            <!-- @Repository 默认false关闭，开启后解决IDEA工具@Autowired报错 -->
+            <property name="@Repository" value="false"/>
+        </plugin>
+
+        <!--  生成表注解插件 -->
         <commentGenerator type="com.guankai.springcloud.mbg.MyCommentGenerator">
-            <property name="author" value="guankai"/>
+            <property name="author" value="guan.kai"/>
+            <property name="dateFormat" value="yyyy-MM-dd HH:mm"/>
         </commentGenerator>
 
         <!--jdbc的数据库连接 -->
@@ -46,7 +55,7 @@
 
         <!-- 生成entity实体类文件位置 -->
         <javaModelGenerator targetPackage="com.guankai.springcloud.entity"
-                            targetProject="src/main/java">
+                            targetProject="demo-model/src/main/java">
         <property name="enableSubPackages" value="false"/>
         <property name="constructorBased" value="true"/>
         <property name="trimStrings" value="true"/>
@@ -54,13 +63,13 @@
 
         <!-- 生成mapper.xml配置文件位置 -->
         <sqlMapGenerator targetPackage="mapper"
-                        targetProject="src/main/resources">
+                        targetProject="demo-model/src/main/resources">
         <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
         <!-- 生成mapper接口文件位置 -->
         <javaClientGenerator targetPackage="com.guankai.springcloud.dao"
-                            targetProject="src/main/java"
+                            targetProject="demo-model/src/main/java"
                             type="XMLMAPPER">
         <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
