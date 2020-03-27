@@ -1,4 +1,4 @@
-package com.guankai;
+package com.guankai.springcloud;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

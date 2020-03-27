@@ -19,8 +19,18 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.guankai</groupId>
+            <artifactId>demo-model</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- slf4j日志依赖 -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
         <!-- 修改后立即生效，热部署 -->
         <dependency>

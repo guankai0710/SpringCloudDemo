@@ -166,7 +166,7 @@
         可以包含零个或多个元素，标识这个appender将会添加到这个logger。
     -->
 
-    <logger name="com.guankai" level="info"/>
+    <logger name="com.guankai.springcloud" level="info"/>
 
     <root level="info"><!-- 输出日志级别 -->
         <!-- 控制台打印日志 -->
