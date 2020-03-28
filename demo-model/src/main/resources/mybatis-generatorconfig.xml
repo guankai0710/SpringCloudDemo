@@ -32,7 +32,7 @@
             <!-- @Mapper 默认true开启 -->
             <property name="@Mapper" value="true"/>
             <!-- @Repository 默认false关闭，开启后解决IDEA工具@Autowired报错 -->
-            <property name="@Repository" value="false"/>
+            <property name="@Repository" value="true"/>
         </plugin>
 
         <!--  生成表注解插件 -->

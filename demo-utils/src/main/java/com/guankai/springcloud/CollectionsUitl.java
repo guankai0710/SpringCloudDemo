@@ -13,15 +13,30 @@ import java.util.*;
  * @author: guan.kai
  * @date: 2019/8/19 23:12
  **/
-public class MyCollectionsUitl {
+public class CollectionsUitl {
 
-    private MyCollectionsUitl() {
+    private CollectionsUitl() {
     }
 
-    private static final Logger logger = LoggerFactory.getLogger(MyCollectionsUitl.class);
+    private static final Logger logger = LoggerFactory.getLogger(CollectionsUitl.class);
 
     private static final String MSG = "参数不能为空！";
     private static final String COMMA = ",";
+
+
+    /**
+     * 判断是否为空.
+     */
+    public static boolean isEmpty(Collection collection) {
+        return (collection == null) || collection.isEmpty();
+    }
+
+    /**
+     * 判断是否为空.
+     */
+    public static boolean isEmpty(Map map) {
+        return (map == null) || map.isEmpty();
+    }
 
     /**
      * 抽取某个属性，返回list
@@ -31,7 +46,7 @@ public class MyCollectionsUitl {
      * @return
      */
     public static List extractToList(Collection collection, String propertyName){
-        if (collection != null && StringUtils.isNotBlank(propertyName)){
+        if (!isEmpty(collection) && StringUtils.isNotBlank(propertyName)){
             List list = new ArrayList(collection.size());
             //将属性名字的首字母大写
             propertyName = propertyName.replaceFirst(propertyName.substring(0, 1), propertyName.substring(0, 1).toUpperCase());
@@ -39,7 +54,7 @@ public class MyCollectionsUitl {
                 try {
                     Object invoke = obj.getClass().getMethod("get" + propertyName).invoke(obj);
                     list.add(invoke);
-                } catch (NoSuchMethodException|IllegalAccessException|InvocationTargetException e) {
+                } catch (IllegalAccessException|IllegalArgumentException|InvocationTargetException|NoSuchMethodException|SecurityException e) {
                     logger.error(e.getMessage());
                 }
             }
@@ -57,7 +72,7 @@ public class MyCollectionsUitl {
      * @return
      */
     public static String extractToString(Collection collection, String propertyName, String cutFlag){
-        if (collection != null && StringUtils.isNotBlank(propertyName)){
+        if (!isEmpty(collection) && StringUtils.isNotBlank(propertyName)){
             StringBuilder str = new StringBuilder();
             //将属性名字的首字母大写
             propertyName = propertyName.replaceFirst(propertyName.substring(0, 1), propertyName.substring(0, 1).toUpperCase());
@@ -68,7 +83,7 @@ public class MyCollectionsUitl {
                         cutFlag = COMMA;
                     }
                     str.append(cutFlag).append(invoke);
-                } catch (NoSuchMethodException|IllegalAccessException|InvocationTargetException e) {
+                } catch (IllegalAccessException|IllegalArgumentException|InvocationTargetException|NoSuchMethodException|SecurityException e) {
                     logger.error(e.getMessage());
                 }
             }
@@ -85,7 +100,7 @@ public class MyCollectionsUitl {
      * @return
      */
     public static Map extractToMap(Collection collection, String propertyName){
-        if (collection != null && StringUtils.isNotBlank(propertyName)){
+        if (!isEmpty(collection) && StringUtils.isNotBlank(propertyName)){
             Map map = new HashMap(collection.size());
             //将属性名字的首字母大写
             propertyName = propertyName.replaceFirst(propertyName.substring(0, 1), propertyName.substring(0, 1).toUpperCase());
@@ -93,7 +108,7 @@ public class MyCollectionsUitl {
                 try {
                     Object invoke = obj.getClass().getMethod("get" + propertyName).invoke(obj);
                     map.put(invoke,obj);
-                } catch (IllegalAccessException|InvocationTargetException|NoSuchMethodException e) {
+                } catch (IllegalAccessException|IllegalArgumentException|InvocationTargetException|NoSuchMethodException|SecurityException e) {
                     logger.error(e.getMessage());
                 }
             }
@@ -111,7 +126,7 @@ public class MyCollectionsUitl {
      * @return
      */
     public static Map extractToMap(Collection collection, String keyPropertyName, String valuePropertyName){
-        if (collection != null && StringUtils.isNotBlank(keyPropertyName) && StringUtils.isNotBlank(valuePropertyName)){
+        if (!isEmpty(collection) && StringUtils.isNotBlank(keyPropertyName) && StringUtils.isNotBlank(valuePropertyName)){
             Map map = new HashMap(collection.size());
             //将属性名字的首字母大写
             keyPropertyName = keyPropertyName.replaceFirst(keyPropertyName.substring(0, 1), keyPropertyName.substring(0, 1).toUpperCase());
@@ -121,9 +136,39 @@ public class MyCollectionsUitl {
                     Object key = obj.getClass().getMethod("get" + keyPropertyName).invoke(obj);
                     Object value = obj.getClass().getMethod("get" + valuePropertyName).invoke(obj);
                     map.put(key,value);
-                } catch (IllegalAccessException|InvocationTargetException|NoSuchMethodException e) {
+                } catch (IllegalAccessException|IllegalArgumentException|InvocationTargetException|NoSuchMethodException|SecurityException e) {
                     logger.error(e.getMessage());
                 }
+            }
+            return map;
+        }
+        throw new NullPointerException(MSG);
+    }
+
+    /**
+     * 根据指定属性值创建分组集合，JDK7下使用，JDK8下可用JDK自带方法List<T>.stream().collect(Collectors.groupingBy(T::getMethodName))
+     *
+     * @param collection
+     * @param keyPropertyName  collection中对象的属性
+     * @return
+     */
+    public static <T> Map<String,List<T>> extractToMapGroupList(List<T> collection, String keyPropertyName) {
+        if (!isEmpty(collection)  && StringUtils.isNotBlank(keyPropertyName)) {
+            Map<String,List<T>> map = new HashMap(collection.size());
+            try {
+                for (T obj : collection) {
+                    String key = obj.getClass().getMethod("get" + keyPropertyName).invoke(obj).toString();
+                    if(map.containsKey(key)){
+                        map.get(key).add(obj);
+                    }else{
+                        List<T> list = new ArrayList<T>();
+                        list.add(obj);
+                        map.put(key, list);
+                    }
+                }
+
+            } catch (IllegalAccessException|IllegalArgumentException|InvocationTargetException|NoSuchMethodException|SecurityException e) {
+                logger.error(e.getMessage());
             }
             return map;
         }
@@ -139,7 +184,7 @@ public class MyCollectionsUitl {
      * @return
      */
     public static <T> List<List<T>> subList(List<T> list, int subSize){
-        if (list != null){
+        if (!isEmpty(list)){
             List<List<T>> resultList = new ArrayList<>();
             int size = list.size();
             if (size < subSize) {
