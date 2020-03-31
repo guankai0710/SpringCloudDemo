@@ -18,6 +18,7 @@ public class CheckFormatUtil {
      * 手机号码正则表达式
      **/
     public static final String PATTERN_MOBILE = "^1[3|4|5|6|7|8|9][0-9]{9}$";
+
     /**
      * 邮箱号码正则表达式
      **/
@@ -29,14 +30,14 @@ public class CheckFormatUtil {
     public static final String PATTERN_IDCARD = "^[0-9]{17}[0-9Xx]{1}$";
 
     /**
-     * 身份证校验码
+     * 身份证校验码(顺序不可变！！！)
      */
     private static final int[] COEFFICIENT_ARRAY = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2};
 
     /**
-     * 身份证号的尾数规则
+     * 身份证号的尾数规则(顺序不可变！！！)
      */
-    private static final String[] IDENTITY_MANTISSA = {"X", "9", "8", "7", "6", "5", "4", "3", "2", "1", "0"};
+    private static final String[] IDENTITY_MANTISSA = {"1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2"};
 
 
     /**
